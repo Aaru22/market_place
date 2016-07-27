@@ -32,14 +32,14 @@
     <script>
     (function(){
         var link = document.createElement("link");
-        link.href = "{!! elixir('css/final.css') !!}";
+        link.href = "http://localhost:2221/public/build/css/final-fb9625b749.css";
         link.type = "text/css";
         link.rel = "stylesheet";
         document.body.appendChild(link);
     })();
     </script>
 
-    <script src="{!! elixir('js/final.js') !!}" async defer></script>
+    <script src="http://localhost:2221/public/build/js/final-e000604025.js" async defer></script>
 
 </body>
 </html>

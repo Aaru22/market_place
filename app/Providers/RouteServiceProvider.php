@@ -17,6 +17,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
 
+    protected $adminNamespace = 'App\Http\Controllers\Admin'; //admin controller
+
+    protected $apiNamespace = 'App\Http\Controllers\Api';  // api controllers
+
+    protected $siteNamespace = 'App\Http\Controllers\Site';  // api controllers
+
     /**
      * This version is applied to the API routes in your routes file.
      *
@@ -48,11 +54,30 @@ class RouteServiceProvider extends ServiceProvider
     public function map(Router $router, ApiRouter $apiRouter)
     {
         $apiRouter->version($this->version, function ($apiRouter) use ($router) {
+
             $apiRouter->group(['namespace' => $this->namespace], function ($api) use ($router) {
                 $router->group(['namespace' => $this->namespace], function ($router) use ($api) {
                     require app_path('Http/routes.php');
                 });
             });
+
+            $apiRouter->group(['namespace' => $this->siteNamespace], function ($api) use ($router) {
+                $router->group(['namespace' => $this->siteNamespace], function ($router) use ($api) {
+                    require app_path('Http/Routes/routes.site.php');
+                });
+            });
+
+            $apiRouter->group(['namespace' => $this->adminNamespace], function ($api) use ($router) {
+                $router->group(['namespace' => $this->adminNamespace], function ($router) use ($api) {
+                    require app_path('Http/Routes/routes.admin.php');
+                });
+            });
+            $apiRouter->group(['namespace' => $this->apiNamespace], function ($api) use ($router) {
+                $router->group(['namespace' => $this->apiNamespace], function ($router) use ($api) {
+                    require app_path('Http/Routes/routes.api.php');
+                });
+            });
+
         });
     }
 }
